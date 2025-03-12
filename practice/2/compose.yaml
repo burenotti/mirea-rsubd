@@ -1,0 +1,50 @@
+x-cassandra: &cassandra-commons
+  image: 'cassandra:latest'
+  expose:
+    - 7000
+    - 9042
+  networks:
+    - cassandra
+
+x-common-environments: &cassandra-common-environments
+  CASSANDRA_SEEDS: cassandra-dc-1-node-1
+  CASSANDRA_CLUSTER_NAME: burenin
+  CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
+  CASSANDRA_DC: dc-1
+  MAX_HEAP_SIZE: 500M
+  HEAP_NEWSIZE: 500M
+
+
+services:
+
+  cassandra-dc-1-node-1:
+    <<: *cassandra-commons
+    environment:
+      <<: *cassandra-common-environments
+      CASSANDRA_SEEDS: ""
+    container_name: cassandra-dc-1-node-1
+    hostname: cassandra-dc-1-node-1
+  
+  cassandra-dc-1-node-2:
+    <<: *cassandra-commons
+    container_name: cassandra-dc-1-node-2
+    hostname: cassandra-dc-1-node-2
+    environment:
+      <<: *cassandra-common-environments
+    depends_on:
+      - cassandra-dc-1-node-1
+
+  cassandra-dc-2-node-1:
+    <<: *cassandra-commons
+    container_name: cassandra-dc-2-node-1
+    hostname: cassandra-dc-2-node-1
+    environment:
+      <<: *cassandra-common-environments
+      CASSANDRA_SEEDS: cassandra-dc-1-node-1
+      CASSANDRA_DC: dc-2
+    depends_on:
+      - cassandra-dc-1-node-1
+ 
+networks:
+  cassandra:
+    driver: bridge

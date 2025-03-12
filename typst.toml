@@ -1,0 +1,8 @@
+[template]
+path = "./template"
+entrypoint = "main.py"
+
+[package]
+name = "rtu-mirea-report"
+version = "0.1.0"
+entrypoint = "main.py"

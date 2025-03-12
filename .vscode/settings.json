@@ -1,0 +1,26 @@
+{
+  "[typst]": {
+    "editor.wordWrap": "on",
+    "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?",
+    "editor.semanticHighlighting.enabled": true,
+    "editor.tabSize": 2,
+    "editor.inlayHints.enabled": "off",
+    "editor.formatOnSaveMode": "modifications",
+    "editor.defaultFormatter": "myriad-dreamin.tinymist",
+  },
+  "tinymist.outputPath": "$root/output/$name",
+  "tinymist.formatterMode": "typstyle",
+  "tinymist.fontPaths": [
+    "$root/fonts",
+  ],
+  "tinymist.exportPdf": "never",
+  "[json]": {
+    "editor.quickSuggestions": {
+      "strings": true
+    },
+    "editor.suggest.insertMode": "replace",
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "modifications"
+  }
+}
