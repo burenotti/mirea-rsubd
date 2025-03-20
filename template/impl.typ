@@ -28,7 +28,7 @@
       table.cell(
         inset: (left: 3mm),
         stroke: black,
-      )[#par(hanging-indent: 0mm, leading: 4pt)[#body]],
+      )[#par(hanging-indent: 0mm, leading: 4pt, justify: false)[#body]],
     )
   ]
 }
