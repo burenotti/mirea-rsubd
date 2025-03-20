@@ -8,7 +8,7 @@ jobs:
   build_and_release:
     outputs:
       artifact_url: 
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
     steps:
       - name: Setup repository
         uses: actions/checkout@v4
