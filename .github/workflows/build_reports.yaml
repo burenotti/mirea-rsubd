@@ -1,0 +1,29 @@
+on:
+  push: 
+    branches:
+      - main
+      - master
+
+jobs:
+  build_pdf:
+    runs-on: ubuntu:latest
+    steps:
+      - name: Setup repository
+        uses: actions/checkout@v4
+      
+      - name: Install typst
+        run: |
+          sudo snap install typst
+      
+      - name: Build PDFs
+        run: |
+          bash .vscode/compile_all.sh "$(pwd)"
+  
+  create_release:
+    runs-on: ubuntu:latest
+    needs: build_pdf
+    steps:
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: output/*.pdf
