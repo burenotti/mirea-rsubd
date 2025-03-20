@@ -5,7 +5,7 @@ on:
       - master
 
 jobs:
-  build_and_release:
+  build:
     outputs:
       artifact_url: 
     runs-on: ubuntu-latest
@@ -21,8 +21,17 @@ jobs:
         run: |
           mkdir -p output/
           bash .vscode/compile_all.sh "$(pwd)"
+      
+      - name: Create release tag
+        env:
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          echo "TAG_NAME=${REF_NAME#refs/tags/}" >> $GITHUB_ENV
 
-      - name: Release
+      - name: Create github release
         uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
         with:
+          name: PDF Release (${{ env.TAG_NAME }})
+          tag_name: ${{ env.TAG_NAME }}
           files: output/*.pdf
