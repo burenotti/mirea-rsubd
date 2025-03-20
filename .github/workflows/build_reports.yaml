@@ -19,6 +19,7 @@ jobs:
       
       - name: Build PDFs
         run: |
+          mkdir -p output/
           bash .vscode/compile_all.sh "$(pwd)"
 
       - name: Release
